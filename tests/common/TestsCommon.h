@@ -29,9 +29,6 @@ class TestsCommon : public QObject
 private slots:
     void init();
     void cleanup();
-
-protected:
-    VlcInstance *_instance;
 };
 
 #endif // VLCQT_TESTSCOMMON_H_

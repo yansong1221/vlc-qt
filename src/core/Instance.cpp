@@ -18,7 +18,7 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QStringList>
-
+#include <QtCore/QCoreApplication>
 #include <vlc/vlc.h>
 
 #include "Config.h"
@@ -30,6 +30,7 @@
 #ifdef Q_OS_WIN
 #include "compat/asprintf.h"
 #endif
+
 
 void logCallback(void *data,
                  int level,
@@ -251,4 +252,10 @@ QList<VlcModuleDescription *> VlcInstance::videoFilterList() const
     libvlc_module_description_list_release(original);
 
     return videoFilters;
+}
+
+VlcInstance *VlcInstance::globalInstance()
+{
+    static VlcInstance instance(QCoreApplication::arguments());
+    return &instance;
 }

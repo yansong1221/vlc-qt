@@ -52,7 +52,7 @@ public:
 
         \param instance main libvlc instance
     */
-    explicit VlcMediaList(VlcInstance *instance);
+    explicit VlcMediaList(QObject *parent = nullptr);
 
     /*!
         \brief VlcMediaList destructor

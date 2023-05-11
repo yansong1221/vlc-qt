@@ -23,10 +23,10 @@
 #include "core/Media.h"
 #include "core/MediaList.h"
 
-VlcMediaList::VlcMediaList(VlcInstance *instance)
-    : QObject(instance)
+VlcMediaList::VlcMediaList(QObject *parent)
+    : QObject(parent)
 {
-    _vlcMediaList = libvlc_media_list_new(instance->core());
+    _vlcMediaList = libvlc_media_list_new(VlcInstance::globalInstance()->core());
     _vlcEvents = libvlc_media_list_event_manager(_vlcMediaList);
 
     createCoreConnections();

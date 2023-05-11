@@ -33,7 +33,6 @@
 
 VlcQmlVideoPlayer::VlcQmlVideoPlayer(QQuickItem *parent)
     : VlcQmlVideoObject(parent),
-      _instance(0),
       _media(0),
       _audioManager(0),
       _videoManager(0),
@@ -43,9 +42,8 @@ VlcQmlVideoPlayer::VlcQmlVideoPlayer(QQuickItem *parent)
       _seekable(true)
 
 {
-    _instance = new VlcInstance(VlcCommon::args(), this);
-    _instance->setUserAgent(qApp->applicationName(), qApp->applicationVersion());
-    _player = new VlcMediaPlayer(_instance);
+    VlcInstance::globalInstance()->setUserAgent(qApp->applicationName(), qApp->applicationVersion());
+    _player = new VlcMediaPlayer(this);
     _audioManager = new VlcAudio(_player);
     _videoManager = new VlcVideo(_player);
 
@@ -69,7 +67,6 @@ VlcQmlVideoPlayer::~VlcQmlVideoPlayer()
     delete _videoManager;
     delete _media;
     delete _player;
-    delete _instance;
 }
 
 void VlcQmlVideoPlayer::registerPlugin()
@@ -300,9 +297,9 @@ void VlcQmlVideoPlayer::setUrl(const QUrl &url)
         _media->deleteLater();
 
     if(url.isLocalFile()) {
-        _media = new VlcMedia(url.toLocalFile(), true, _instance);
+        _media = new VlcMedia(url.toLocalFile(), true, this);
     } else {
-        _media = new VlcMedia(url.toString(QUrl::FullyEncoded), false, _instance);
+        _media = new VlcMedia(url.toString(QUrl::FullyEncoded), false, this);
     }
 
     connect(_media, static_cast<void (VlcMedia::*)(bool)>(&VlcMedia::parsedChanged), this, &VlcQmlVideoPlayer::mediaParsed);

@@ -28,17 +28,17 @@
 
 VlcMedia::VlcMedia(const QString &location,
                    bool localFile,
-                   VlcInstance *instance)
-    : QObject(instance)
+                   QObject *parent)
+    : QObject(parent)
 {
-    initMedia(location, localFile, instance);
+    initMedia(location, localFile);
 }
 
 VlcMedia::VlcMedia(const QString &location,
-                   VlcInstance *instance)
-    : QObject(instance)
+                   QObject *parent)
+    : QObject(parent)
 {
-    initMedia(location, false, instance);
+    initMedia(location, false);
 }
 
 VlcMedia::VlcMedia(libvlc_media_t *media)
@@ -64,8 +64,7 @@ libvlc_media_t *VlcMedia::core()
 }
 
 void VlcMedia::initMedia(const QString &location,
-                         bool localFile,
-                         VlcInstance *instance)
+                         bool localFile)
 {
     _currentLocation = location;
     QString l = location;
@@ -74,9 +73,9 @@ void VlcMedia::initMedia(const QString &location,
 
     // Create a new libvlc media descriptor from location
     if (localFile)
-        _vlcMedia = libvlc_media_new_path(instance->core(), l.toUtf8().data());
+        _vlcMedia = libvlc_media_new_path(VlcInstance::globalInstance()->core(), l.toUtf8().data());
     else
-        _vlcMedia = libvlc_media_new_location(instance->core(), l.toUtf8().data());
+        _vlcMedia = libvlc_media_new_location(VlcInstance::globalInstance()->core(), l.toUtf8().data());
 
     _vlcEvents = libvlc_media_event_manager(_vlcMedia);
 

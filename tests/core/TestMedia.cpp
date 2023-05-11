@@ -38,21 +38,21 @@ private slots:
 
 void TestMedia::localInit()
 {
-    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance);
+    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true);
 
     delete media;
 }
 
 void TestMedia::remoteInit()
 {
-    VlcMedia *media = new VlcMedia("http://localhost/sample.mp3", _instance);
+    VlcMedia *media = new VlcMedia("http://localhost/sample.mp3");
 
     delete media;
 }
 
 void TestMedia::copyInit()
 {
-    VlcMedia *media1 = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance);
+    VlcMedia *media1 = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true);
     VlcMedia *media2 = new VlcMedia(media1->core());
 
     Q_UNUSED(media2)
@@ -60,7 +60,7 @@ void TestMedia::copyInit()
 
 void TestMedia::basic()
 {
-    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance);
+    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true);
 
     QCOMPARE(media->parsed(), false);
     QCOMPARE(media->currentLocation(), QString(SAMPLES_DIR) + "sample.mp3");
@@ -87,7 +87,7 @@ void TestMedia::basic()
 
 void TestMedia::recording()
 {
-    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance);
+    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true);
     QCOMPARE(media->duplicate("test", "path", Vlc::AVI), QDir::toNativeSeparators("path/test.avi"));
     QCOMPARE(media->duplicate("test", "path", Vlc::AVI, Vlc::MPEG2Audio, Vlc::MPEG4Video), QDir::toNativeSeparators("path/test.avi"));
     QCOMPARE(media->duplicate("test", "path", Vlc::AVI, Vlc::MPEG2Audio, Vlc::MPEG4Video, 1000, 25, 1), QDir::toNativeSeparators("path/test.avi"));
@@ -101,7 +101,7 @@ void TestMedia::recording()
 
 void TestMedia::options()
 {
-    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance);
+    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true);
     media->setProgram(1);
     media->setOptions(QStringList() << "option1"
                                     << "option2");

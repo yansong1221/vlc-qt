@@ -33,10 +33,10 @@ private slots:
 
 void TestPlayer::player()
 {
-    Player *testPlayer = new Player(_instance);
+    Player *testPlayer = new Player();
     testPlayer->show();
 
-    QTest::qWait(10000);
+    QTest::qWait(100000);
 }
 
 QTEST_MAIN(TestPlayer)

@@ -58,7 +58,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 ###################
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(docs)
-
+ADD_SUBDIRECTORY(examples)
 
 #########
 # Tests #

@@ -37,12 +37,12 @@ private slots:
 
 void TestMediaList::list()
 {
-    VlcMedia *referenceMedia = new VlcMedia("http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi", _instance);
+    VlcMedia *referenceMedia = new VlcMedia("http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi");
 
-    VlcMediaList *mediaList = new VlcMediaList(_instance);
-    mediaList->addMedia(new VlcMedia("http://videos.hd-trailers.net/Hobbit_The_Battle_Of_The_Five_Armies_2014_Trailer2_5.1-480p-HDTN.mp4", _instance));
+    VlcMediaList *mediaList = new VlcMediaList();
+    mediaList->addMedia(new VlcMedia("http://videos.hd-trailers.net/Hobbit_The_Battle_Of_The_Five_Armies_2014_Trailer2_5.1-480p-HDTN.mp4"));
     mediaList->addMedia(referenceMedia);
-    mediaList->insertMedia(new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance), 0);
+    mediaList->insertMedia(new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true), 0);
 
     QCOMPARE(mediaList->count(), 3);
     QCOMPARE(mediaList->indexOf(referenceMedia), 2);
@@ -59,13 +59,13 @@ void TestMediaList::list()
 
 void TestMediaList::player()
 {
-    VlcMediaPlayer *player = new VlcMediaPlayer(_instance);
+    VlcMediaPlayer *player = new VlcMediaPlayer();
     player->audio()->setVolume(0);
-    VlcMediaListPlayer *listPlayer = new VlcMediaListPlayer(player, _instance);
+    VlcMediaListPlayer *listPlayer = new VlcMediaListPlayer(player);
 
-    VlcMediaList *mediaList = new VlcMediaList(_instance);
-    mediaList->addMedia(new VlcMedia("http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi", _instance));
-    mediaList->addMedia(new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance));
+    VlcMediaList *mediaList = new VlcMediaList();
+    mediaList->addMedia(new VlcMedia("http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi"));
+    mediaList->addMedia(new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true));
 
     listPlayer->setMediaList(mediaList);
     listPlayer->setPlaybackMode(Vlc::Loop);
@@ -95,7 +95,7 @@ void TestMediaList::player()
 
     QTest::qWait(500);
 
-    VlcMediaListPlayer *listPlayerStandalone = new VlcMediaListPlayer(_instance);
+    VlcMediaListPlayer *listPlayerStandalone = new VlcMediaListPlayer();
     listPlayerStandalone->core();
 }
 

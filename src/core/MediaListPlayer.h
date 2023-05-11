@@ -54,7 +54,7 @@ public:
 
         \param instance instance object
     */
-    explicit VlcMediaListPlayer(VlcInstance *instance);
+    explicit VlcMediaListPlayer(QObject *parent = nullptr);
 
     /*!
         \brief VlcMediaListPlayer constructor.
@@ -65,7 +65,7 @@ public:
         \param instance instance object
     */
     explicit VlcMediaListPlayer(VlcMediaPlayer *player,
-                                VlcInstance *instance);
+                                QObject *parent = nullptr);
 
     /*!
         VlcMediaListPlayer destructor

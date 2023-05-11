@@ -34,14 +34,12 @@ class Player : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit Player(VlcInstance *instance,
-                    QWidget *parent = 0);
+    explicit Player(QWidget *parent = 0);
     ~Player();
 
 private:
     Ui::Player *ui;
 
-    VlcInstance *_instance;
     VlcMedia *_media;
     VlcMediaPlayer *_player;
 };

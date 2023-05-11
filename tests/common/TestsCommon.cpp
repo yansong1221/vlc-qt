@@ -31,12 +31,10 @@ void TestsCommon::init()
 #ifndef Q_OS_DARWIN
     VlcCommon::setPluginPath(QString(LIBVLC_PLUGINS_DIR));
 #endif
-
-    _instance = new VlcInstance(VlcCommon::args(), this);
-    _instance->setLogLevel(Vlc::DebugLevel);
+    VlcInstance::globalInstance()->setLogLevel(Vlc::DebugLevel);
 }
 
 void TestsCommon::cleanup()
 {
-    delete _instance;
+    
 }

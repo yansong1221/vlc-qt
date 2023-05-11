@@ -30,10 +30,10 @@
 #include "core/Equalizer.h"
 #endif
 
-VlcMediaPlayer::VlcMediaPlayer(VlcInstance *instance)
-    : QObject(instance)
+VlcMediaPlayer::VlcMediaPlayer(QObject *parent)
+    : QObject(parent)
 {
-    _vlcMediaPlayer = libvlc_media_player_new(instance->core());
+    _vlcMediaPlayer = libvlc_media_player_new(VlcInstance::globalInstance()->core());
     _vlcEvents = libvlc_media_player_event_manager(_vlcMediaPlayer);
 
     /* Disable mouse and keyboard events */
@@ -70,6 +70,7 @@ VlcMediaPlayer::~VlcMediaPlayer()
 
     VlcError::showErrmsg();
 }
+
 
 libvlc_media_player_t *VlcMediaPlayer::core() const
 {
@@ -198,6 +199,11 @@ void VlcMediaPlayer::openOnly(VlcMedia *media)
     libvlc_media_player_set_media(_vlcMediaPlayer, media->core());
 
     VlcError::showErrmsg();
+}
+
+bool VlcMediaPlayer::isPlaying() const
+{
+    return this->state() == Vlc::Playing;
 }
 
 void VlcMediaPlayer::play()

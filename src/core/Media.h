@@ -26,7 +26,6 @@
 #include "Enums.h"
 #include "SharedExportCore.h"
 
-class VlcInstance;
 struct VlcStats;
 
 struct libvlc_event_t;
@@ -56,7 +55,7 @@ public:
     */
     explicit VlcMedia(const QString &location,
                       bool localFile,
-                      VlcInstance *instance);
+                      QObject *parent = nullptr);
 
     /*!
         \brief VlcMedia constructor.
@@ -68,7 +67,7 @@ public:
         \param instance main libvlc instance (VlcInstance *)
     */
     explicit VlcMedia(const QString &location,
-                      VlcInstance *instance);
+                      QObject *parent = nullptr);
 
     /*!
         \brief VlcMedia constructor.
@@ -340,8 +339,7 @@ signals:
 
 private:
     void initMedia(const QString &location,
-                   bool localFile,
-                   VlcInstance *instance);
+                   bool localFile);
 
     static void libvlc_callback(const libvlc_event_t *event,
                                 void *data);

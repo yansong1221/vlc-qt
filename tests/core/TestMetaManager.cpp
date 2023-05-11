@@ -35,7 +35,7 @@ private slots:
 
 void TestMetaManager::reading()
 {
-    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance);
+    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true);
     VlcMetaManager *meta = new VlcMetaManager(media);
 
     QCOMPARE(meta->title(), QString("Noise"));
@@ -58,7 +58,7 @@ void TestMetaManager::reading()
 
 void TestMetaManager::writing()
 {
-    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance);
+    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true);
     VlcMetaManager *meta = new VlcMetaManager(media);
 
     QString title("TitleTest");
@@ -90,7 +90,7 @@ void TestMetaManager::writing()
     delete meta;
     delete media;
 
-    media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance);
+    media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3");
     meta = new VlcMetaManager(media);
 
     QCOMPARE(meta->title(), title);
@@ -111,7 +111,7 @@ void TestMetaManager::writing()
 
 void TestMetaManager::reset()
 {
-    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3", true, _instance);
+    VlcMedia *media = new VlcMedia(QString(SAMPLES_DIR) + "sample.mp3");
     VlcMetaManager *meta = new VlcMetaManager(media);
 
     meta->setTitle("Noise");

@@ -82,13 +82,17 @@ ENDIF()
 
 ADD_DEPENDENCIES(${VLCQT_WIDGETS} ${VLCQT_CORE})
 
-# Linux/Mac: Set framework, version and headers
-SET_TARGET_PROPERTIES(${VLCQT_WIDGETS} PROPERTIES FRAMEWORK ON
-                                                  OUTPUT_NAME "${VLCQT_WIDGETS_NAME}"
-                                                  VERSION ${VLCQT_VERSION}
-                                                  SOVERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
-                                                  PUBLIC_HEADER "${VLCQT_WIDGETS_HEADERS}"
-)
+IF(MINGW OR MSVC)
+    FILE(COPY ${VLCQT_WIDGETS_HEADERS} DESTINATION "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_INCLUDEDIR}/${VLCQT_WIDGETS_NAME}")
+ELSE()
+    # Linux/Mac: Set framework, version and headers
+    SET_TARGET_PROPERTIES(${VLCQT_WIDGETS} PROPERTIES FRAMEWORK ON
+                                                    OUTPUT_NAME "${VLCQT_WIDGETS_NAME}"
+                                                    VERSION ${VLCQT_VERSION}
+                                                    SOVERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
+                                                    PUBLIC_HEADER "${VLCQT_WIDGETS_HEADERS}"
+    )
+ENDIF()
 
 SYMLINK_FRAMEWORK_TEST(${VLCQT_WIDGETS} widgets ${VLCQT_WIDGETS_NAME})
 

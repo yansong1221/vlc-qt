@@ -223,12 +223,14 @@ WId VlcWidgetVideo::request()
     if (_video)
         return 0;
 
-    _video = new QWidget();
+    _video = new QWidget(this);
     QPalette plt = palette();
     plt.setColor(QPalette::Window, Qt::black);
     _video->setPalette(plt);
     _video->setAutoFillBackground(true);
-    _video->setMouseTracking(true);
+    _video->setAttribute(Qt::WA_DontCreateNativeAncestors);
+    _video->setAttribute(Qt::WA_NativeWindow);
+    //_video->setMouseTracking(true);
 /* Indicates that the widget wants to draw directly onto the screen.
        Widgets with this attribute set do not participate in composition
        management */
@@ -239,7 +241,6 @@ WId VlcWidgetVideo::request()
 #endif
 
     _layout->addWidget(_video);
-
     sync();
     return _video->winId();
 }

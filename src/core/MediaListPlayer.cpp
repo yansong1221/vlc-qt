@@ -26,14 +26,14 @@
 #include "core/MediaListPlayer.h"
 #include "core/MediaPlayer.h"
 
-VlcMediaListPlayer::VlcMediaListPlayer(VlcInstance *instance)
-    : QObject(instance),
+VlcMediaListPlayer::VlcMediaListPlayer(QObject *parent)
+    : QObject(parent),
       _list(0),
       _mode(Vlc::DefaultPlayback)
 {
-    _player = new VlcMediaPlayer(instance);
+    _player = new VlcMediaPlayer(this);
 
-    _vlcMediaListPlayer = libvlc_media_list_player_new(instance->core());
+    _vlcMediaListPlayer = libvlc_media_list_player_new(VlcInstance::globalInstance()->core());
     _vlcEvents = libvlc_media_list_player_event_manager(_vlcMediaListPlayer);
     libvlc_media_list_player_set_media_player(_vlcMediaListPlayer, _player->core());
 
@@ -43,14 +43,14 @@ VlcMediaListPlayer::VlcMediaListPlayer(VlcInstance *instance)
 }
 
 VlcMediaListPlayer::VlcMediaListPlayer(VlcMediaPlayer *player,
-                                       VlcInstance *instance)
-    : QObject(instance),
+                                       QObject *parent)
+    : QObject(parent),
       _list(0),
       _mode(Vlc::DefaultPlayback)
 {
     _player = player;
 
-    _vlcMediaListPlayer = libvlc_media_list_player_new(instance->core());
+    _vlcMediaListPlayer = libvlc_media_list_player_new(VlcInstance::globalInstance()->core());
     _vlcEvents = libvlc_media_list_player_event_manager(_vlcMediaListPlayer);
     libvlc_media_list_player_set_media_player(_vlcMediaListPlayer, _player->core());
 

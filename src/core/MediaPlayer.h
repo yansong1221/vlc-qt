@@ -30,8 +30,8 @@
 #include "SharedExportCore.h"
 
 class VlcAudio;
-class VlcEqualizer;
 class VlcInstance;
+class VlcEqualizer;
 class VlcMedia;
 class VlcVideo;
 class VlcVideoDelegate;
@@ -60,7 +60,7 @@ public:
 
         \param instance instance object (VlcInstance *)
     */
-    explicit VlcMediaPlayer(VlcInstance *instance);
+    explicit VlcMediaPlayer(QObject *parent = nullptr);
 
     /*!
         VlcMediaPlayer destructor
@@ -122,6 +122,8 @@ public:
         \param media object (VlcMedia *)
     */
     void openOnly(VlcMedia *media);
+
+    bool isPlaying() const;
 
 public slots:
     /*! \brief Set the movie time (in ms).

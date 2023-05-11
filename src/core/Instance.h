@@ -39,7 +39,7 @@ struct libvlc_instance_t;
 class VLCQT_CORE_EXPORT VlcInstance : public QObject
 {
     Q_OBJECT
-public:
+protected:
     /*!
         \brief VlcInstance constructor.
 
@@ -55,6 +55,8 @@ public:
         VlcInstance destructor
     */
     ~VlcInstance();
+
+public:
 
     /*!
         \brief Returns libvlc instance object.
@@ -157,6 +159,8 @@ public:
         \return video filter module description list
     */
     QList<VlcModuleDescription *> videoFilterList() const;
+
+    static VlcInstance* globalInstance();
 
 private:
     libvlc_instance_t *_vlcInstance;

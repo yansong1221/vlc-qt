@@ -35,8 +35,7 @@ VlcQmlPlayer::VlcQmlPlayer(QObject *parent)
       _audioPreferredLanguages(QStringList()),
       _subtitlePreferredLanguages(QStringList())
 {
-    _instance = new VlcInstance(VlcCommon::args(), this);
-    _player = new VlcMediaPlayer(_instance);
+    _player = new VlcMediaPlayer(this);
 
     _audioTrackModel = new VlcTrackModel(this);
     _subtitleTrackModel = new VlcTrackModel(this);
@@ -61,7 +60,6 @@ VlcQmlPlayer::~VlcQmlPlayer()
         delete _media;
 
     delete _player;
-    delete _instance;
 }
 
 void VlcQmlPlayer::pause()
@@ -115,7 +113,7 @@ qint64 VlcQmlPlayer::length() const
 
 int VlcQmlPlayer::logLevel() const
 {
-    return _instance->logLevel();
+    return VlcInstance::globalInstance()->logLevel();
 }
 
 void VlcQmlPlayer::setLogLevel(int level)
@@ -123,7 +121,7 @@ void VlcQmlPlayer::setLogLevel(int level)
     if (level == logLevel())
         return;
 
-    _instance->setLogLevel(Vlc::LogLevel(level));
+    VlcInstance::globalInstance()->setLogLevel(Vlc::LogLevel(level));
     emit logLevelChanged();
 }
 
@@ -176,9 +174,9 @@ void VlcQmlPlayer::setUrl(const QUrl &url)
         _media->deleteLater();
 
     if (url.isLocalFile()) {
-        _media = new VlcMedia(url.toLocalFile(), true, _instance);
+        _media = new VlcMedia(url.toLocalFile(), true, this);
     } else {
-        _media = new VlcMedia(url.toString(QUrl::FullyEncoded), false, _instance);
+        _media = new VlcMedia(url.toString(QUrl::FullyEncoded), false, this);
     }
 
     connect(_media, static_cast<void (VlcMedia::*)(bool)>(&VlcMedia::parsedChanged), this, &VlcQmlPlayer::mediaParsed);

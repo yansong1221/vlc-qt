@@ -598,7 +598,7 @@ private:
     int preferredAudioTrackId();
     int preferredSubtitleTrackId();
 
-    VlcInstance *_instance;
+
     VlcMedia *_media;
 
     VlcAudio *_audioManager;
