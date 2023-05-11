@@ -1,32 +1,13 @@
-# Prerequisites
-*.d
+# Possible build dirs:
+build*/
+homebrew/
+release/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# System files
+*.DS_Store*
 
-# Precompiled Headers
-*.gch
-*.pch
+# Project files
+CMakeLists.txt.user*
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+# Debian/build
+obj*
